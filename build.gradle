@@ -1,0 +1,23 @@
+apply plugin: "java"
+apply plugin: "maven-publish"
+
+
+sourceCompatibility = 1.8
+targetCompatibility= 1.8
+
+jar{
+    from{
+        configurations.runtimeClasspath.collect{it.isDirectory() ? it : zipTree(it)}
+    }
+}
+
+publishing {
+    publications {
+        Production(MavenPublication) {
+            groupId = 'com.github.deng-rui'
+            artifactId = 'Compress-Zip'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+}
